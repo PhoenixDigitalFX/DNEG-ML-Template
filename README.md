@@ -49,7 +49,7 @@ Example usage:
 - *resume_from_checkpoint* Path to a specific checkpoint to resume the training from. Cannot be use if --resume is enabled.
 
 ### Run Testing
-To run testing on a trained model, configure a test configuration with the name {experiment_name}_test.json in the experiment's folder. See Example_test.json config template for reference.
+To run testing on a trained model, configure a test configuration with the name {experiment_name}_test.json in the experiment's run folder. See Example_test.json config template for reference.
 run_testing will load a checkpoint for the experiment and run inference on the testing data.
 
 Example usage: 
@@ -60,6 +60,18 @@ Example usage:
 - *run* Number of the experiment run to test.
 - *device* allows the testing to be run on gpu. 1 will run on 1 gpu, [0] will run on gpu with index 0, cpu will run the training on cpu.
 - *checkpoint* Name of the checkpoint in the experiment's Checkpoint folder to load. If not specified, will load the latest checkpoint.
+
+### Exporting Networks
+The DNEG ML Toolkit supports exporting trained networks to common formats, such as ONNX and TorchScript. To export a 
+trained model, configure an export configuration with the name {experiment_name}_export.json in the experiment's run folder. 
+See Example_export.json config template for reference.
+
+*python run_export.py --experiment {experiment_name} --run 0*
+
+- *experiment* is the name of the experiment within the experiments folder
+- *run* Number of the experiment run to export.
+- *checkpoint* Name of the checkpoint in the experiment's Checkpoint folder to load. If not specified, will load the latest checkpoint.
+
 
 ### Running Tensorboard
 The system generates Tensorboard reports as it is running. To view these reports, run tensorboard from commandline using:
@@ -80,6 +92,9 @@ described there.
 - *target_folder* is the folder relative to the project's src folder to create the Component in.
 - *parent_component* Name of the Component to inherit from. E.g. if creating a new Network, inherit from Base_Network. If not provided, will inherit from ML Toolkit's base Component."
 - *is_base_component* Optional flag used when creating a new base Component type.
+
+
+
 
 ## Tutorial
 The DNEG ML Template project is an example project that shows how to build ML systems using DNEG ML Toolkit. It uses image classification

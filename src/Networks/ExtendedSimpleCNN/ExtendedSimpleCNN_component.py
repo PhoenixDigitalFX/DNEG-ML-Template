@@ -93,6 +93,19 @@ class ExtendedSimpleCNN(BASE_Network):
             The input ML Toolkit dictionary, with the "data" field updated with the Network outputs
         """
 
-        x = train_dict["data"]
-        train_dict["data"] = self.network(x)  # Replace the network input in-place with the network output
+        # TODO DEBUG - Networks must support tensor-only inputs to export to onnx
+        if isinstance(train_dict, dict):
+            x = train_dict["data"]
+        else:
+            x = train_dict
+
+        # x = train_dict["data"]
+        output = self.network(x)  # Replace the network input in-place with the network output
+
+        if isinstance(x, dict):
+            # Update the "data" entry with the network output, preserving any other metadata in the dictionary
+            train_dict["data"] = output
+        else:
+            train_dict = output
+
         return train_dict

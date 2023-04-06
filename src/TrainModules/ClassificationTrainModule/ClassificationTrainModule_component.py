@@ -8,7 +8,7 @@ from dneg_ml_toolkit.src.Networks.BASE_Network.BASE_Network_component import BAS
 from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
 from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_config import ExecutionModeEnum
 from dneg_ml_toolkit.src.globals import Globals
-
+from dneg_ml_toolkit.src.Exporters.BASE_Exporter.BASE_Exporter_component import BASE_Exporter
 from src.TrainModules.ClassificationTrainModule.ClassificationTrainModule_config import ClassificationTrainModuleConfig
 
 import torch
@@ -281,3 +281,23 @@ class ClassificationTrainModule(BASE_TrainModule):
             metric.reset()
 
         self.log_dict(logs, on_epoch=True, logger=True)
+
+    def export(self, exporters: List[BASE_Exporter], sample_input_data: torch.Tensor,
+               validation_data: torch.Tensor) -> None:
+        """
+        Use the specified exporters to export the Module's Network(s)
+
+        Args:
+            exporters: List of Exporter Components
+            sample_input_data: Sample data item used by the exporters to build the Network graphs for export
+            validation_data: A different piece of data to use for validating that the network exported correctly
+        Returns:
+            None
+        """
+
+        # Export the Module's Network using each of the specified Exporters
+        for exporter in exporters:
+            exporter.export(save_filename=self.Network.Name(),
+                            network=self.Network,
+                            sample_input_data=sample_input_data,
+                            validation_data=validation_data)

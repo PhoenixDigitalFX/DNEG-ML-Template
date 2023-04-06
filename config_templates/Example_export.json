@@ -1,0 +1,34 @@
+{
+	"Type": "Export",
+	"Name": "Example_export",
+	"DataModule": {
+		"Type": "DataModule",
+		"TrainDataloader": {
+			"Type": "Dataloader",
+			"BatchSize": 1,
+			"Datasets": [
+				{
+					"Type": "FashionMNIST",
+					"Source": "Data/FashionMNIST_v1",
+					"TrainingSet": false
+				}
+			]
+		}
+	},
+	"Exporters": [
+		{
+			"Type": "ONNXExporter",
+			"ExportDevices": [
+				"CPU",
+				"GPU"
+			]
+		},
+		{
+			"Type": "TorchScriptExporter",
+			"ExportDevices": [
+				"CPU",
+				"GPU"
+			]
+		}
+	]
+}

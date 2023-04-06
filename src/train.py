@@ -1,7 +1,7 @@
 import os
 from typing import cast, Optional
 
-from dneg_ml_toolkit.src.Train_config import TrainConfig
+from dneg_ml_toolkit.src.AppConfigs.Train_config import TrainConfig
 from dneg_ml_toolkit.src.Component.component_store import ComponentStore
 from dneg_ml_toolkit.src.Data.DataModules.DataModule.DataModule_component import DataModule
 from dneg_ml_toolkit.src.utils import device_utils

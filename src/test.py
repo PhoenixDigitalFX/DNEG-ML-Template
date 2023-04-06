@@ -1,8 +1,8 @@
 import os
 from typing import cast, Optional
 
-from dneg_ml_toolkit.src.Train_config import TrainConfig
-from dneg_ml_toolkit.src.Test_config import TestConfig
+from dneg_ml_toolkit.src.AppConfigs.Train_config import TrainConfig
+from dneg_ml_toolkit.src.AppConfigs.Test_config import TestConfig
 from dneg_ml_toolkit.src.Component.component_store import ComponentStore
 from dneg_ml_toolkit.src.Data.DataModules.DataModule.DataModule_component import DataModule
 from dneg_ml_toolkit.src.utils import device_utils
@@ -34,6 +34,10 @@ def run_testing(testing_config: TestConfig, resume_checkpoint: Optional[str] = N
     # Test Dataloader defined.
     # Load the data module with the test configuration
     data_module = cast(DataModule, ComponentStore().build_component_from_config(testing_config.DataModule))
+
+    assert data_module.test_dataloader() is not None, "The Data Module has no Test Dataloader. A Test Dataloader " \
+                                                      "must be configured to run testing. "
+
     Logger().Log("--------------------Data Module Built----------")
 
     checkpoint_folder = os.path.join(testing_config.Experiment_Folder, Globals().CHECKPOINTS_FOLDER)

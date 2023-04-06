@@ -107,7 +107,7 @@ class ExampleGrayscale(BASE_Transform):
             green_channel, _ = image_dtype_utils.transform_data_type(green_channel,
                                                                      to_type=image_dtype_utils.ImageDataType.NPArray)
 
-            blue_channel = data_to_transform_numpy[:, :, 0]  # Single channel [HxW]
+            blue_channel = data_to_transform_numpy[:, :, 2]  # Single channel [HxW]
             blue_channel = blue_channel.reshape((*blue_channel.shape, 1))  # Image in [HxWxC]
             blue_channel, _ = image_dtype_utils.transform_data_type(blue_channel,
                                                                     to_type=image_dtype_utils.ImageDataType.NPArray)
