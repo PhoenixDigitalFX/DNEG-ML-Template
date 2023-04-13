@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Union, Optional
 
 from dneg_ml_toolkit.src.Networks.BASE_Network.BASE_Network_component import BASE_Network
 import dneg_ml_toolkit.src.Networks.layers as dneg_ml
@@ -6,6 +6,7 @@ from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
 from src.Networks.ExtendedSimpleCNN.ExtendedSimpleCNN_config import ExtendedSimpleCNNConfig
 
 import torch.nn as nn
+import torch
 
 
 class ExtendedSimpleCNN(BASE_Network):
@@ -77,35 +78,40 @@ class ExtendedSimpleCNN(BASE_Network):
         # Call this after self.network is created, as it applies to the submodules of this class
         self.init_layer_weights()
 
-    def forward(self, train_dict: MLToolkitDictionary, step: Optional[int] = -1) -> MLToolkitDictionary:
+    def forward(self, x: Union[MLToolkitDictionary, torch.Tensor], step: Optional[int] = -1) \
+            -> Union[MLToolkitDictionary, torch.Tensor]:
         """
-        Perform the forward pass on the network.
+        Forward pass for the network
 
         Args:
-            train_dict: All data is transported through ML Toolkit systems in ML Toolkit dictionaries (a custom
+            x: During training, all data is transported through ML Toolkit systems in ML Toolkit dictionaries (a custom
                 dictionary for holding Tensors). This provides flexibility for training, as multiple tensors can
                 be passed into the forward pass at the same time. The ML Toolkit standard is for the Dataset (see
                 CIFAR10 or FashionMNIST) to store the core tensor, such as the image in this case, under the "data"
                 keyword, and the ground truth under the "target" keyword.
+                In order to support exporting the network (to ONNX, TorchScript etc.), this must
+                also accept a tensor for inference.
             step: Allow the trainer to inform the Network of the current step
 
         Returns:
-            The input ML Toolkit dictionary, with the "data" field updated with the Network outputs
+            During training, returns the input dictionary updated with network outputs. In order to support exporting
+            the network, this must also be able to return a tensor if the input is a tensor.
         """
 
-        # TODO DEBUG - Networks must support tensor-only inputs to export to onnx
-        if isinstance(train_dict, dict):
-            x = train_dict["data"]
+        # During training, extract the data from the dictionary
+        if isinstance(x, dict):
+            batch = x["data"]
         else:
-            x = train_dict
+            # During export, the input x will be a tensor, so use it directly
+            batch = x
 
-        # x = train_dict["data"]
-        output = self.network(x)  # Replace the network input in-place with the network output
+        output = self.network(batch)
 
         if isinstance(x, dict):
             # Update the "data" entry with the network output, preserving any other metadata in the dictionary
-            train_dict["data"] = output
+            x["data"] = output  # Replace the network input in-place with the network output
         else:
-            train_dict = output
+            # During export, return the network output as a tensor
+            x = output
 
-        return train_dict
+        return x

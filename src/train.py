@@ -61,6 +61,8 @@ def train(training_config: TrainConfig, resume: bool, resume_checkpoint: Optiona
         every_n_epochs=1,
         save_top_k=-1,  # Save all checkpoints
         filename="{}".format(training_config.Name) + "_{epoch:03d}",
+        save_on_train_epoch_end=True  # Separate checkpoint saving from the validation step, since if this is false it
+        # only performs checkpointing as part of the validation step
     )
 
     report_folder = os.path.join(training_config.Experiment_Folder, Globals().REPORTS_FOLDER)
