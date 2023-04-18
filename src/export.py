@@ -4,14 +4,12 @@ from typing import cast, Optional, List
 from dneg_ml_toolkit.src.AppConfigs.Train_config import TrainConfig
 from dneg_ml_toolkit.src.AppConfigs.Export_config import ExportConfig
 from dneg_ml_toolkit.src.Component.component_store import ComponentStore
-from dneg_ml_toolkit.src.Data.DataModules.DataModule.DataModule_component import DataModule
+from dneg_ml_toolkit.src.Data.DataModules.DataModule import DataModule
 from dneg_ml_toolkit.src.globals import Globals
 from dneg_ml_toolkit.src.checkpoints import checkpoint_utils
 from dneg_ml_toolkit.src.utils.logger import Logger
-from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_component import BASE_TrainModule
-from dneg_ml_toolkit.src.Exporters.BASE_Exporter.BASE_Exporter_component import BASE_Exporter
-
-from pytorch_lightning import Trainer, LightningModule
+from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule import BASE_TrainModule
+from dneg_ml_toolkit.src.Exporters.BASE_Exporter import BASE_Exporter
 
 
 def export(export_config: ExportConfig, resume_checkpoint: Optional[str] = None) -> None:

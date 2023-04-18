@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from dneg_ml_toolkit.src.Data.Datasets.BASE_Dataset.BASE_Dataset_config import BASE_DatasetConfig
+from dneg_ml_toolkit.src.Data.Datasets.BASE_Dataset import BASE_DatasetConfig
 
 # All Component Config classes must have the @dataclass decorator. A Python dataclass defines fields (type-annotated
 # variables). DNEG ML Toolkit uses this structure to expose the fields to the JSON system, mapping and type-validating

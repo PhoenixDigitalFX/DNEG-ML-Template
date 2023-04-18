@@ -1,9 +1,11 @@
 from typing import List, Union, Optional
 
-from dneg_ml_toolkit.src.Networks.BASE_Network.BASE_Network_component import BASE_Network
+from dneg_ml_toolkit.src.Networks.BASE_Network import BASE_Network
 import dneg_ml_toolkit.src.Networks.layers as dneg_ml
 from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
-from src.Networks.ExtendedSimpleCNN.ExtendedSimpleCNN_config import ExtendedSimpleCNNConfig
+
+# Import the Component's corresponding Config with a relative import
+from .ExtendedSimpleCNN_config import ExtendedSimpleCNNConfig
 
 import torch.nn as nn
 import torch

@@ -1,0 +1,2 @@
+from .ClassificationTrainModule_component import ClassificationTrainModule
+from .ClassificationTrainModule_config import ClassificationTrainModuleConfig

@@ -1,12 +1,12 @@
 from typing import List, Optional, cast, Tuple
 
-from dneg_ml_toolkit.src.Data.Datasets.BASE_Dataset.BASE_Dataset_component import BASE_Dataset
+from dneg_ml_toolkit.src.Data.Datasets.BASE_Dataset import BASE_Dataset
 from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
-from dneg_ml_toolkit.src.Data.Collate.BASE_Collate.BASE_Collate_component import BASE_Collate
-from dneg_ml_toolkit.src.Data.Transforms.ToTensor.ToTensor_config import ToTensorConfig
-from dneg_ml_toolkit.src.Data.Transforms.ToTensor.ToTensor_component import ToTensor
+from dneg_ml_toolkit.src.Data.Collate.BASE_Collate import BASE_Collate
+from dneg_ml_toolkit.src.Data.Transforms.ToTensor import ToTensorConfig, ToTensor
 
-from src.Data.Datasets.CIFAR10.CIFAR10_config import CIFAR10Config
+# Import the Component's corresponding Config with a relative import
+from .CIFAR10_config import CIFAR10Config
 
 from torchvision.datasets import CIFAR10 as pytorch_CIFAR10
 import numpy as np

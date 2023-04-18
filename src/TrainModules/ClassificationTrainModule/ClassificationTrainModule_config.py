@@ -1,14 +1,13 @@
 from dataclasses import dataclass, field
-
-from dneg_ml_toolkit.src.Networks.BASE_Network.BASE_Network_config import BASE_NetworkConfig
-from dneg_ml_toolkit.src.Losses.BASE_Loss.BASE_Loss_config import BASE_LossConfig
-from dneg_ml_toolkit.src.Optimizers.BASE_Optimizer.BASE_Optimizer_config import BASE_OptimizerConfig
-from dneg_ml_toolkit.src.Schedulers.BASE_Scheduler.BASE_Scheduler_config import BASE_SchedulerConfig
-from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_config import BASE_TrainModuleConfig
-
-from dneg_ml_toolkit.src.Component.component_config import EMPTY
-
 from typing import List, Optional, Union, Dict, Any
+
+from dneg_ml_toolkit.src.Networks.BASE_Network import BASE_NetworkConfig
+from dneg_ml_toolkit.src.Losses.BASE_Loss import BASE_LossConfig
+from dneg_ml_toolkit.src.Optimizers.BASE_Optimizer import BASE_OptimizerConfig
+from dneg_ml_toolkit.src.Schedulers.BASE_Scheduler import BASE_SchedulerConfig
+from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule import BASE_TrainModuleConfig
+from dneg_ml_toolkit.src.Component import EMPTY
+
 
 
 @dataclass

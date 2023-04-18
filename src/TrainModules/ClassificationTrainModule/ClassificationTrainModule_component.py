@@ -2,14 +2,16 @@ from typing import List, Dict, Any, cast, Optional
 import os
 
 from dneg_ml_toolkit.src.Component.component_store import ComponentStore
-from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_component import BASE_TrainModule
-from dneg_ml_toolkit.src.Losses.BASE_Loss.BASE_Loss_component import BASE_Loss
-from dneg_ml_toolkit.src.Networks.BASE_Network.BASE_Network_component import BASE_Network
+from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule import BASE_TrainModule
+from dneg_ml_toolkit.src.Losses.BASE_Loss import BASE_Loss
+from dneg_ml_toolkit.src.Networks.BASE_Network import BASE_Network
 from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
-from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_config import ExecutionModeEnum
+from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule import ExecutionModeEnum
 from dneg_ml_toolkit.src.globals import Globals
-from dneg_ml_toolkit.src.Exporters.BASE_Exporter.BASE_Exporter_component import BASE_Exporter
-from src.TrainModules.ClassificationTrainModule.ClassificationTrainModule_config import ClassificationTrainModuleConfig
+from dneg_ml_toolkit.src.Exporters.BASE_Exporter import BASE_Exporter
+
+# Import the Component's corresponding Config with a relative import
+from .ClassificationTrainModule_config import ClassificationTrainModuleConfig
 
 import torch
 from torchmetrics import Accuracy, MeanMetric

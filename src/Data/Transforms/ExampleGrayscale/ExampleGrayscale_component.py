@@ -1,10 +1,11 @@
 import copy
 from typing import cast, Any, Optional, Dict, Tuple
-from dneg_ml_toolkit.src.Data.Transforms.BASE_Transform.BASE_Transform_component import BASE_Transform
+from dneg_ml_toolkit.src.Data.Transforms.BASE_Transform import BASE_Transform
 from dneg_ml_toolkit.src.Data.ml_toolkit_dictionary import MLToolkitDictionary
 from dneg_ml_toolkit.src.Data.image_tools import image_dtype_utils
 
-from src.Data.Transforms.ExampleGrayscale.ExampleGrayscale_config import ExampleGrayscaleConfig
+# Import the Component's corresponding Config with a relative import
+from .ExampleGrayscale_config import ExampleGrayscaleConfig
 
 from torchvision.transforms import Grayscale
 import numpy as np

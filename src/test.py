@@ -4,12 +4,12 @@ from typing import cast, Optional
 from dneg_ml_toolkit.src.AppConfigs.Train_config import TrainConfig
 from dneg_ml_toolkit.src.AppConfigs.Test_config import TestConfig
 from dneg_ml_toolkit.src.Component.component_store import ComponentStore
-from dneg_ml_toolkit.src.Data.DataModules.DataModule.DataModule_component import DataModule
+from dneg_ml_toolkit.src.Data.DataModules.DataModule import DataModule
 from dneg_ml_toolkit.src.utils import device_utils
 from dneg_ml_toolkit.src.globals import Globals
 from dneg_ml_toolkit.src.checkpoints import checkpoint_utils
 from dneg_ml_toolkit.src.utils.logger import Logger
-from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule.BASE_TrainModule_config import ExecutionModeEnum
+from dneg_ml_toolkit.src.TrainModules.BASE_TrainModule import ExecutionModeEnum
 
 from pytorch_lightning import Trainer, LightningModule
 
@@ -71,7 +71,8 @@ def run_testing(testing_config: TestConfig, resume_checkpoint: Optional[str] = N
 
     Logger().Log("--------------------Building Lightning Trainer----------")
 
-    trainer = Trainer(**device_config)
+    trainer = Trainer(**device_config, logger=False)  # Disable lightning_logs - if any loggers are required,
+    # add them here (see train.py which uses a Tensorboard logger)
     Logger().Log("--------------------Lightning Trainer Built----------")
 
     Logger().Log("--------------------Starting Testing----------")
