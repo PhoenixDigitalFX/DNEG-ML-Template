@@ -93,9 +93,6 @@ described there.
 - *parent_component* Name of the Component to inherit from. E.g. if creating a new Network, inherit from Base_Network. If not provided, will inherit from ML Toolkit's base Component."
 - *is_base_component* Optional flag used when creating a new base Component type.
 
-
-
-
 ## Tutorial
 The DNEG ML Template project is an example project that shows how to build ML systems using DNEG ML Toolkit. It uses image classification
 as the ML task, and includes a variety of Components and options to showcase the ML Toolkit's features.
@@ -167,7 +164,13 @@ config for the Component type (i.e. a new Network's config class would inherit f
 the corresponding Component object when the system is being initialized from config.
 - The class implemented in {ComponentName}_component.py is called {ComponentName} and inherits from the base component 
 for the Component type (i.e. a new Network's class would inherit from BASE_Network).
-- The Component always takes its corresponding ComponentConfig as input to its constructor.
+- The namespace of the Component and ComponentConfig class is simplified to make importing them easier. This is done 
+by importing the 2 classes in the Component package's \_\_init\_\_.py with relative imports 
+(i.e. from .{ComponentName}_config import {ComponentName}Config; from {ComponentName}_component import {ComponentName}).
+This allows the classes to be imported elsewhere using: from {ComponentLocation}.{ComponentName} import {ComponentName}, {ComponentName}Config
+- The Component always takes its corresponding ComponentConfig as input to its constructor. In the Component class,
+import its ComponentConfig directly using a relative import (from .{ComponentName}_config import {ComponentName}Config) so that
+it doesn't trigger the imports from the Component's \_\_init\_\_.py, which would cause a circular reference and crash.
 - It is possible for a Component to be a sub-class of another Component, just inherit from the parent Component's
 object and Config class instead of the base class.
 - It is also possible to define new base Component types. This requires the component_group function to be defined in
